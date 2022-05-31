@@ -1,6 +1,9 @@
+import 'package:admin_dashboard/router/roter.dart';
+import 'package:admin_dashboard/ui/layouts/auth/auth_layout.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  Flurorouter.configureRoutes();
   runApp(const MyApp());
 }
 
@@ -15,7 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Container(),
+      initialRoute: '/',
+      onGenerateRoute: Flurorouter.router.generator,
+      builder: (_, child) {
+        return const AuthLayout();
+      },
     );
   }
 }
