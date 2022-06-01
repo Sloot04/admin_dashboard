@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+      initialRoute: '/auth/login',
       onGenerateRoute: Flurorouter.router.generator,
       builder: (_, child) {
-        return const AuthLayout();
+        return AuthLayout(child: child!);
       },
     );
   }

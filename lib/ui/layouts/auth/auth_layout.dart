@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:admin_dashboard/ui/layouts/auth/widgets/background_twitter.dart';
+import 'package:admin_dashboard/ui/layouts/auth/widgets/custom_title.dart';
 
 class AuthLayout extends StatelessWidget {
-  const AuthLayout({Key? key}) : super(key: key);
+  final Widget child;
+  const AuthLayout({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
-      children: const [
+      children: [
         // Desktop
-        _DesktopBody(),
+        _DesktopBody(child: child),
         // Movile
 
         // LinksBar
@@ -20,7 +23,8 @@ class AuthLayout extends StatelessWidget {
 }
 
 class _DesktopBody extends StatelessWidget {
-  const _DesktopBody({Key? key}) : super(key: key);
+  final Widget child;
+  const _DesktopBody({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,14 @@ class _DesktopBody extends StatelessWidget {
             width: 600,
             height: double.infinity,
             color: Colors.black,
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                const CustomTitle(),
+                const SizedBox(height: 50),
+                Expanded(child: child)
+              ],
+            ),
           )
         ],
       ),
