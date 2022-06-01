@@ -12,16 +12,19 @@ class AuthLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        body: ListView(
-      physics: const ClampingScrollPhysics(),
-      children: [
-        (size.width > 1000)
-            ? _DesktopBody(child: child)
-            : _MobileBody(child: child),
-        // LinksBar
-        const LinksBar(),
-      ],
-    ));
+        body: Scrollbar(
+         // thumbVisibility: true,
+          child: ListView(
+              physics: const ClampingScrollPhysics(),
+              children: [
+          (size.width > 1000)
+              ? _DesktopBody(child: child)
+              : _MobileBody(child: child),
+          // LinksBar
+          const LinksBar(),
+              ],
+            ),
+        ));
   }
 }
 
@@ -73,15 +76,15 @@ class _MobileBody extends StatelessWidget {
         children:  [
           const SizedBox(height: 20),
           const CustomTitle(),
-          Container(
+          SizedBox(
             width: double.infinity,
             height: 420,
             child: child,
           ),
-          Container(
+          const SizedBox(
             width: double.infinity,
             height: 400,
-            child:const BackgroundTwitter(),
+            child:BackgroundTwitter(),
           )
         ],
       ),

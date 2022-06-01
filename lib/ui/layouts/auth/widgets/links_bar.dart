@@ -13,6 +13,7 @@ class LinksBar extends StatelessWidget {
         child: Wrap(
           alignment: WrapAlignment.center,
           children: [
+            // ignore: avoid_print
             LinkText(text: 'About', onPressed: () => print('About')),
             const LinkText(text: 'Help Center'),
             const LinkText(text: 'Terms of Service'),
