@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -30,7 +31,13 @@ class LoginView extends StatelessWidget {
                       children: [
                         // Email
                         TextFormField(
-                          // validator: :(),
+                          validator: (value) {
+                            if (!EmailValidator.validate(value ?? '')) {
+                              return 'Email no válido';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) => loginFormProvider.email = value,
                           style: const TextStyle(color: Colors.white),
                           decoration: CustomInputs.loginInputDecoration(
                               hint: 'Ingrese su correo',
@@ -40,6 +47,8 @@ class LoginView extends StatelessWidget {
                         const SizedBox(height: 20),
                         // Password
                         TextFormField(
+                          onChanged: (value) =>
+                              loginFormProvider.password = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Ingrese su contraseña';
