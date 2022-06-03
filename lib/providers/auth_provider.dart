@@ -1,5 +1,9 @@
-import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:flutter/material.dart';
+
+import 'package:admin_dashboard/router/roter.dart';
+import 'package:admin_dashboard/services/local_storage.dart';
+import '../services/navigation_service.dart';
+
 
 enum AuthStatus { checking, authenticated, notAutenticated }
 
@@ -19,6 +23,7 @@ class AuthProvider extends ChangeNotifier {
     // TODO: Navegar al dashboard
     authStatus = AuthStatus.authenticated;
     notifyListeners();
+    NavigationService.replaceTo(Flurorouter.dashboardRoute);
   }
 
   Future<bool> isAuthenticated() async {
