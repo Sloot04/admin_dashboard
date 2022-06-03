@@ -8,6 +8,7 @@ import 'services/navigation_service.dart';
 
 import 'ui/layouts/auth/auth_layout.dart';
 import 'ui/layouts/dashboard/dashboard_layout.dart';
+import 'ui/layouts/splash/splash_layout.dart';
 
 void main() async {
   await LocalStorage.configurePrefs();
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         final authProvider = Provider.of<AuthProvider>(context);
         if (authProvider.authStatus == AuthStatus.checking) {
-          return const Center(child: Text('checking'));
+          return const SplashLayout();
         }
 
         if (authProvider.authStatus == AuthStatus.authenticated) {
