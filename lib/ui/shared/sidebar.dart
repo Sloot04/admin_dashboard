@@ -24,6 +24,48 @@ class Sidebar extends StatelessWidget {
             icon: Icons.compass_calibration_outlined,
             onPressed: () => print('Dashboard'),
           ),
+          MenuItems(
+              text: 'Orders',
+              icon: Icons.shopping_cart_outlined,
+              onPressed: () {}),
+          MenuItems(
+              text: 'Analytic',
+              icon: Icons.show_chart_outlined,
+              onPressed: () {}),
+          MenuItems(
+              text: 'Categories',
+              icon: Icons.layers_outlined,
+              onPressed: () {}),
+          MenuItems(
+              text: 'Products',
+              icon: Icons.dashboard_outlined,
+              onPressed: () {}),
+          MenuItems(
+              text: 'Discount',
+              icon: Icons.attach_money_outlined,
+              onPressed: () {}),
+          MenuItems(
+              text: 'Customers',
+              icon: Icons.people_alt_outlined,
+              onPressed: () {}),
+          const SizedBox(height: 30),
+          const TextSeparator(text: 'UI Elements'),
+          MenuItems(
+              text: 'Icons', icon: Icons.list_alt_outlined, onPressed: () {}),
+          MenuItems(
+              text: 'Marketing',
+              icon: Icons.mark_email_read_outlined,
+              onPressed: () {}),
+          MenuItems(
+              text: 'Campaing',
+              icon: Icons.note_add_outlined,
+              onPressed: () {}),
+          MenuItems(
+              text: 'Black', icon: Icons.post_add_outlined, onPressed: () {}),
+          MenuItems(
+              text: 'Logout',
+              icon: Icons.exit_to_app_outlined,
+              onPressed: () {}),
         ],
       ),
     );
