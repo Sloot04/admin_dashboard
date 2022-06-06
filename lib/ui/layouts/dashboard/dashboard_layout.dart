@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../shared/sidebar.dart';
+
 class DashboardLayout extends StatelessWidget {
   final Widget child;
   const DashboardLayout({Key? key, required this.child}) : super(key: key);
@@ -7,18 +9,15 @@ class DashboardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: const Color(0xffEDF1F2),
+        body: Row(
           children: [
-            const Text(
-              'Dashboard',
-              style: TextStyle(fontSize: 50),
-            ),
+            //TODO: esto depende si es mas de 700px
+            const Sidebar(),
+
+            // Contenedor de nuestro view
             Expanded(child: child)
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
