@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/navbar_avatar.dart';
+import 'widgets/notifications_indicator.dart';
 import 'widgets/search_text.dart';
 
 class Navbar extends StatelessWidget {
@@ -18,9 +20,14 @@ class Navbar extends StatelessWidget {
 
         //Search input
         ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 250 ),
-          child: SearchText(),
-          ),
+          constraints: const BoxConstraints(maxWidth: 250),
+          child: const SearchText(),
+        ),
+        const Spacer(),
+        const NotificationsIndicator(),
+        const SizedBox(width: 10),
+        const NavbarAvatar(),
+        const SizedBox(width: 10),
       ]),
     );
   }
