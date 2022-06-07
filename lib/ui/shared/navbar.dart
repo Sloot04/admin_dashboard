@@ -9,20 +9,23 @@ class Navbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Container(
       width: double.infinity,
       height: 50,
       decoration: buildBoxDecoration(),
       child: Row(children: [
-        //TODO: icono del menú
-        IconButton(icon: const Icon(Icons.menu_outlined), onPressed: () {}),
+        if (size.width < 700)
+          IconButton(icon: const Icon(Icons.menu_outlined), onPressed: () {}),
         const SizedBox(width: 5),
 
         //Search input
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 250),
-          child: const SearchText(),
-        ),
+        if (size.width > 390)
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 250),
+            child: const SearchText(),
+          ),
         const Spacer(),
         const NotificationsIndicator(),
         const SizedBox(width: 10),
