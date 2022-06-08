@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'router/roter.dart';
 import 'providers/auth_provider.dart';
+import 'package:admin_dashboard/providers/sidemenu_provider.dart';
+
+import 'router/roter.dart';
+
 import 'services/local_storage.dart';
 import 'services/navigation_service.dart';
 
@@ -23,7 +26,8 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(lazy: false, create: (_) => AuthProvider())
+        ChangeNotifierProvider(lazy: false, create: (_) => AuthProvider()),
+        ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider())
       ],
       child: const MyApp(),
     );
