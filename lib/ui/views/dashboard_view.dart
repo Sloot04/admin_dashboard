@@ -8,16 +8,14 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        physics: const ClampingScrollPhysics(),
-        children: [
-          Text('Dashboard View', style: CustomLabels.h1),
-          const SizedBox(height: 10),
-          const WhiteCard(
-              title: 'Sales Statistics', child:  Text('Hola Mundno')),
-        ],
-      ),
+    return ListView(
+      physics: const ClampingScrollPhysics(),
+      children: [
+        Text('Dashboard View', style: CustomLabels.h1),
+        const SizedBox(height: 10),
+        const WhiteCard(
+            title: 'Sales Statistics', child:  Text('Hola Mundno')),
+      ],
     );
   }
 }
