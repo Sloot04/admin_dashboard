@@ -22,14 +22,23 @@ class AuthProvider extends ChangeNotifier {
   }
 
   login(String email, String password) {
-    // TODO: Petición HTTP;
-    _token = 'dhkdgffhgbsgyshau87ggdsy.ahfuhudih.agyhdgd';
-    LocalStorage.prefs.setString('token', _token!);
+    final data = {'correo': email, 'password': password};
 
-    // TODO: Navegar al dashboard
-    authStatus = AuthStatus.authenticated;
-    notifyListeners();
-    NavigationService.replaceTo(Flurorouter.dashboardRoute);
+    CafeApi.post('/auth/login', data).then((json) {
+      // ignore: avoid_print
+      print(json);
+      final authResponse = AuthResponse.fromMap(json);
+      user = authResponse.usuario;
+
+      authStatus = AuthStatus.authenticated;
+      LocalStorage.prefs.setString('token', authResponse.token);
+      NavigationService.replaceTo(Flurorouter.dashboardRoute);
+      notifyListeners();
+    }).catchError((e) {
+      // ignore: avoid_print
+      print(e);
+      NotificationsService.showSnackbarError('Usuario no válido');
+    });
   }
 
   register(String email, String password, String name) {
@@ -45,7 +54,6 @@ class AuthProvider extends ChangeNotifier {
       LocalStorage.prefs.setString('token', authResponse.token);
       NavigationService.replaceTo(Flurorouter.dashboardRoute);
       notifyListeners();
-
     }).catchError((e) {
       // ignore: avoid_print
       print('error en: $e');
