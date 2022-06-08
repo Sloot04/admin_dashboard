@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:admin_dashboard/api/cafe_api.dart';
+
 import 'providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/sidemenu_provider.dart';
 
@@ -15,6 +17,7 @@ import 'ui/layouts/splash/splash_layout.dart';
 
 void main() async {
   await LocalStorage.configurePrefs();
+  CafeApi.configureDio();
   Flurorouter.configureRoutes();
   runApp(const AppState());
 }
