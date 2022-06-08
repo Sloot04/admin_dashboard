@@ -5,8 +5,10 @@ import 'package:admin_dashboard/api/cafe_api.dart';
 import 'package:admin_dashboard/models/http/auth_response.dart';
 
 import 'package:admin_dashboard/router/roter.dart';
+
 import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
+import 'package:admin_dashboard/services/notifications_service.dart';
 
 enum AuthStatus { checking, authenticated, notAutenticated }
 
@@ -47,7 +49,7 @@ class AuthProvider extends ChangeNotifier {
     }).catchError((e) {
       // ignore: avoid_print
       print('error en: $e');
-      //TODO: Mostrar notificación de error
+      NotificationsService.showSnackbarError('Usuario existente');
     });
   }
 
