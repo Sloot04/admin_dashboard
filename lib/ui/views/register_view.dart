@@ -34,6 +34,7 @@ class RegisterView extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
+                          onFieldSubmitted: (_) => onFormSubmit(context, registerFormProvider),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Ingrese un nombre';
@@ -54,6 +55,7 @@ class RegisterView extends StatelessWidget {
                         const SizedBox(height: 20),
 
                         TextFormField(
+                          onFieldSubmitted: (_) => onFormSubmit(context, registerFormProvider),
                           validator: (value) {
                             if (!EmailValidator.validate(value ?? '')) {
                               return 'Email no válido';
@@ -71,6 +73,7 @@ class RegisterView extends StatelessWidget {
                         const SizedBox(height: 20),
                         // Password
                         TextFormField(
+                          onFieldSubmitted: (_) => onFormSubmit(context, registerFormProvider),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Ingrese una contraseña';
@@ -92,19 +95,7 @@ class RegisterView extends StatelessWidget {
                         const SizedBox(height: 20),
                         CustomOutlineButton(
                           isFilled: true,
-                          onPressed: () {
-                            final validForm =
-                                registerFormProvider.validateForm();
-                            if (!validForm) return;
-
-                            final authProvider = Provider.of<AuthProvider>(
-                                context,
-                                listen: false);
-                            authProvider.register(
-                                registerFormProvider.email,
-                                registerFormProvider.password,
-                                registerFormProvider.name);
-                          },
+                          onPressed: () => onFormSubmit(context, registerFormProvider),
                           text: 'Crear cuenta',
                         ),
                         const SizedBox(height: 20),
@@ -121,5 +112,14 @@ class RegisterView extends StatelessWidget {
             ),
           );
         }));
+  }
+
+  void onFormSubmit(context, RegisterFormProvider registerFormProvider) {
+    final validForm = registerFormProvider.validateForm();
+    if (!validForm) return;
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider.register(registerFormProvider.email,
+        registerFormProvider.password, registerFormProvider.name);
   }
 }
