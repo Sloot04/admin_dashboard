@@ -32,6 +32,7 @@ class AuthProvider extends ChangeNotifier {
       authStatus = AuthStatus.authenticated;
       LocalStorage.prefs.setString('token', authResponse.token);
       NavigationService.replaceTo(Flurorouter.dashboardRoute);
+      CafeApi.configureDio();
       notifyListeners();
     }).catchError((e) {
       // ignore: avoid_print
@@ -52,6 +53,7 @@ class AuthProvider extends ChangeNotifier {
       authStatus = AuthStatus.authenticated;
       LocalStorage.prefs.setString('token', authResponse.token);
       NavigationService.replaceTo(Flurorouter.dashboardRoute);
+      CafeApi.configureDio();
       notifyListeners();
     }).catchError((e) {
       // ignore: avoid_print
@@ -68,11 +70,20 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     }
-    //TODO: ir al backend y comprobar si el JWT es válido;
-    await Future.delayed(const Duration(milliseconds: 1000));
-    authStatus = AuthStatus.authenticated;
-    notifyListeners();
 
-    return true;
+    try {
+      final resp = await CafeApi.httpGet('/auth');
+      final authResponse = AuthResponse.fromMap(resp);
+      user = authResponse.usuario;
+      authStatus = AuthStatus.authenticated;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      authStatus = AuthStatus.notAutenticated;
+      notifyListeners();
+      return false;
+    }
   }
 }
