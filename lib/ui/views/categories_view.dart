@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 
-import '../cards/white_card.dart';
+import 'package:admin_dashboard/datatables/categories_datasource.dart';
+
+import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 
 class CategoriesView extends StatelessWidget {
   const CategoriesView({Key? key}) : super(key: key);
@@ -13,8 +14,15 @@ class CategoriesView extends StatelessWidget {
       children: [
         Text('Categories View', style: CustomLabels.h1),
         const SizedBox(height: 10),
-        const WhiteCard(
-            title: 'Categorías titulo', child:  Text('Hola Mundno')),
+        PaginatedDataTable(
+          columns: const [
+            DataColumn(label: Text('ID')),
+            DataColumn(label: Text('Categoría')),
+            DataColumn(label: Text('Creado por')),
+            DataColumn(label: Text('Acciones')),
+          ],
+          source: CategoriesDTS(),
+        ),
       ],
     );
   }
