@@ -28,36 +28,39 @@ class _CategoriesViewState extends State<CategoriesView> {
   Widget build(BuildContext context) {
     final categorias = Provider.of<CategoriesProvider>(context).categories;
 
-    return ListView(
-      physics: const ClampingScrollPhysics(),
-      children: [
-        Text('Categories View', style: CustomLabels.h1),
-        const SizedBox(height: 10),
-        PaginatedDataTable(
-          columns: const [
-            DataColumn(label: Text('ID')),
-            DataColumn(label: Text('Categoría')),
-            DataColumn(label: Text('Creado por')),
-            DataColumn(label: Text('Acciones')),
-          ],
-          source: CategoriesDTS(categorias),
-          header: const Text('Categorías disponibles', maxLines: 2),
-          onRowsPerPageChanged: (value) {
-            setState(() {
-              _rowsPerPage = value ?? 10;
-            });
-          },
-          rowsPerPage: _rowsPerPage,
-          actions: [
-            CustomIconButton(
-              icon: Icons.add_outlined,
-              text: 'Crear',
-              onPressed: () {},
-              color: const Color.fromARGB(255, 16, 67, 148),
-            )
-          ],
-        ),
-      ],
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: ListView(
+        physics: const ClampingScrollPhysics(),
+        children: [
+          Text('Categories View', style: CustomLabels.h1),
+          const SizedBox(height: 10),
+          PaginatedDataTable(
+            columns: const [
+              DataColumn(label: Text('ID')),
+              DataColumn(label: Text('Categoría')),
+              DataColumn(label: Text('Creado por')),
+              DataColumn(label: Text('Acciones')),
+            ],
+            source: CategoriesDTS(categorias, context),
+            header: const Text('Categorías disponibles', maxLines: 2),
+            onRowsPerPageChanged: (value) {
+              setState(() {
+                _rowsPerPage = value ?? 10;
+              });
+            },
+            rowsPerPage: _rowsPerPage,
+            actions: [
+              CustomIconButton(
+                icon: Icons.add_outlined,
+                text: 'Crear',
+                onPressed: () {},
+                color: const Color.fromARGB(255, 16, 67, 148),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
