@@ -21,7 +21,7 @@ class CategoriesDTS extends DataTableSource {
           children: [
             IconButton(
                 onPressed: () {
-                  print('Editando: $category');
+                 
                 },
                 icon: const Icon(Icons.edit_outlined)),
             IconButton(
