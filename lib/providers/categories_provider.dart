@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:admin_dashboard/api/cafe_api.dart';
 
+import 'package:admin_dashboard/models/category.dart';
+import 'package:admin_dashboard/models/http/categories_response.dart';
+
 class CategoriesProvider extends ChangeNotifier {
-  List categories = [];
+  List<Categoria> categories = [];
 
   getCategories() async {
-    final res = await CafeApi.httpGet('/categorias');
-    print(res);
+    final resp = await CafeApi.httpGet('/categorias');
+    final categoriesResponse = CategoriesResponse.fromMap(resp);
+
+    categories = [...categoriesResponse.categorias];
+
     notifyListeners();
   }
 }
