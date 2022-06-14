@@ -67,11 +67,12 @@ class _CategoryModalState extends State<CategoryModal> {
             alignment: Alignment.center,
             child: CustomOutlineButton(
               onPressed: () async {
-                print(nombre);
                 if (id == null) {
                   // Crear categoría
                   await categoryProvider.newCategory(nombre);
-                } else {}
+                } else {
+                  await categoryProvider.updateCategory(id!, nombre);
+                }
                 Navigator.of(context).pop();
               },
               text: 'Guardar',

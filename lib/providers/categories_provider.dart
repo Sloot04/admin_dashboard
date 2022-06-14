@@ -26,7 +26,32 @@ class CategoriesProvider extends ChangeNotifier {
       categories.add(newCategory);
       notifyListeners();
     } catch (e) {
+      // ignore: avoid_print
       print(e);
+      // ignore: avoid_print
+      print('Error al cargar categoria');
+    }
+  }
+
+  Future updateCategory(String id, String name) async {
+    final data = {'nombre': name};
+
+    try {
+      await CafeApi.put('/categorias/$id', data);
+
+      categories = categories.map((e) {
+        if (e.id != id) {
+          return e;
+        }
+        e.nombre = name;
+        return e;
+      }).toList();
+
+      notifyListeners();
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      // ignore: avoid_print
       print('Error al cargar categoria');
     }
   }
