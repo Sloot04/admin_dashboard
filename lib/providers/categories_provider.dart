@@ -26,10 +26,7 @@ class CategoriesProvider extends ChangeNotifier {
       categories.add(newCategory);
       notifyListeners();
     } catch (e) {
-      // ignore: avoid_print
-      print(e);
-      // ignore: avoid_print
-      print('Error al cargar categoria');
+      throw 'Error al cargar categoria';
     }
   }
 
@@ -49,10 +46,7 @@ class CategoriesProvider extends ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      // ignore: avoid_print
-      print(e);
-      // ignore: avoid_print
-      print('Error al cargar categoria');
+      throw 'Error al cargar categoria';
     }
   }
 

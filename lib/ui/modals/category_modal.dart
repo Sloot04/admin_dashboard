@@ -1,12 +1,15 @@
-import 'package:admin_dashboard/providers/categories_provider.dart';
-import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:admin_dashboard/models/category.dart';
 
-import 'package:admin_dashboard/ui/labels/custom_labels.dart';
+import 'package:admin_dashboard/providers/categories_provider.dart';
+
+import 'package:admin_dashboard/services/notifications_service.dart';
+
+import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
-import 'package:provider/provider.dart';
+import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 
 class CategoryModal extends StatefulWidget {
   final Categoria? categoria;
@@ -67,13 +70,24 @@ class _CategoryModalState extends State<CategoryModal> {
             alignment: Alignment.center,
             child: CustomOutlineButton(
               onPressed: () async {
-                if (id == null) {
-                  // Crear categoría
-                  await categoryProvider.newCategory(nombre);
-                } else {
-                  await categoryProvider.updateCategory(id!, nombre);
+                try {
+                  if (id == null) {
+                    // Crear categoría
+                    await categoryProvider.newCategory(nombre);
+                    NotificationsService.showSnackbar(
+                        'Categoría $nombre creada');
+                  } else {
+                    // Actualizar categoría
+                    await categoryProvider.updateCategory(id!, nombre);
+                    NotificationsService.showSnackbar(
+                        'Categoría $nombre actualizada');
+                  }
+                  Navigator.of(context).pop();
+                } catch (e) {
+                  Navigator.of(context).pop();
+                  NotificationsService.showSnackbarError(
+                      'No se pudo guardar la categoría');
                 }
-                Navigator.of(context).pop();
               },
               text: 'Guardar',
               isTextWhite: true,
