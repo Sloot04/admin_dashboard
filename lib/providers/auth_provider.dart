@@ -24,8 +24,6 @@ class AuthProvider extends ChangeNotifier {
     final data = {'correo': email, 'password': password};
 
     CafeApi.post('/auth/login', data).then((json) {
-      // ignore: avoid_print
-      print(json);
       final authResponse = AuthResponse.fromMap(json);
       user = authResponse.usuario;
 
@@ -45,8 +43,6 @@ class AuthProvider extends ChangeNotifier {
     final data = {'nombre': name, 'correo': email, 'password': password};
 
     CafeApi.post('/usuarios', data).then((json) {
-      // ignore: avoid_print
-      print(json);
       final authResponse = AuthResponse.fromMap(json);
       user = authResponse.usuario;
 

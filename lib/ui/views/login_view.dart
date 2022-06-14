@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
 
-import 'package:provider/provider.dart';
 import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/login_form_provider.dart';
 
 import 'package:admin_dashboard/router/roter.dart';
+
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/buttons/link_text.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
@@ -84,7 +85,7 @@ class LoginView extends StatelessWidget {
                         LinkText(
                           text: 'Nueva cuenta',
                           onPressed: () {
-                            Navigator.pushNamed(
+                            Navigator.pushReplacementNamed(
                                 context, Flurorouter.registerRoute);
                           },
                         ),
