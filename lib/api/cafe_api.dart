@@ -51,4 +51,17 @@ class CafeApi {
       throw ('Error en el PUT');
     }
   }
+
+  static Future delete(String path, Map<String, dynamic> data) async {
+    final formData = FormData.fromMap(data);
+
+    try {
+      final resp = await _dio.delete(path, data: formData);
+      return resp.data;
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      throw ('Error en el DELET');
+    }
+  }
 }

@@ -39,14 +39,27 @@ class CategoriesProvider extends ChangeNotifier {
     try {
       await CafeApi.put('/categorias/$id', data);
 
-      categories = categories.map((e) {
-        if (e.id != id) {
-          return e;
+      categories = categories.map((c) {
+        if (c.id != id) {
+          return c;
         }
-        e.nombre = name;
-        return e;
+        c.nombre = name;
+        return c;
       }).toList();
 
+      notifyListeners();
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      // ignore: avoid_print
+      print('Error al cargar categoria');
+    }
+  }
+
+  Future deleteCategory(String id) async {
+    try {
+      await CafeApi.delete('/categorias/$id', {});
+      categories.removeWhere((c) => c.id == id);
       notifyListeners();
     } catch (e) {
       // ignore: avoid_print
