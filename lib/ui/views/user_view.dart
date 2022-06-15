@@ -45,8 +45,38 @@ class _UserViewState extends State<UserView> {
               height: 300,
               child: const CircularProgressIndicator(),
             )),
+          if (user != null) const _UserViewBody()
+        ],
+      ),
+    );
+  }
+}
 
-          //  WhiteCard(title: 'Sales Statistics', child: Text(widget.uid)),
+class _UserViewBody extends StatelessWidget {
+  const _UserViewBody({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Table(
+        columnWidths: const {0: FixedColumnWidth(250)},
+        children: [
+          TableRow(children: [
+            // TODO: Avatar
+            Container(
+              width: 250,
+              height: 200,
+              color: Colors.red,
+            ),
+
+            // TODO:Formulario de actualización
+            Container(
+              height: 200,
+              color: Colors.green,
+            )
+          ])
         ],
       ),
     );
