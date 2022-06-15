@@ -65,11 +65,7 @@ class _UserViewBody extends StatelessWidget {
         children: [
           TableRow(children: [
             // TODO: Avatar
-            Container(
-              width: 250,
-              height: 200,
-              color: Colors.red,
-            ),
+            _AvatarContainer(),
 
             // TODO:Formulario de actualización
             Container(
@@ -80,5 +76,63 @@ class _UserViewBody extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _AvatarContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WhiteCard(
+        width: 250,
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Profile',
+                style: CustomLabels.h2,
+              ),
+              const SizedBox(height: 20),
+              Container(
+                width: 150,
+                height: 160,
+                child: Stack(
+                  children: [
+                    const ClipOval(
+                        child: Image(image: AssetImage('no-image.jpg'))),
+                    Positioned(
+                      bottom: 5,
+                      right: 5,
+                      child: Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 5),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: FloatingActionButton(
+                          backgroundColor: Colors.indigo,
+                          elevation: 0,
+                          onPressed: () {
+                            // TODO: Seleccionar imagen
+                          },
+                          child:
+                              const Icon(Icons.camera_alt_outlined, size: 20),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Nombre de usuario',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        ));
   }
 }
