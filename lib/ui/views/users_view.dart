@@ -10,7 +10,6 @@ import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 class UsersView extends StatelessWidget {
   const UsersView({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     final usersProvider = Provider.of<UsersProvider>(context);
@@ -23,13 +22,25 @@ class UsersView extends StatelessWidget {
         children: [
           Text('Users View', style: CustomLabels.h1),
           const SizedBox(height: 10),
-          PaginatedDataTable(columns: const [
-            DataColumn(label: Text('Avatar')),
-            DataColumn(label: Text('Nombre')),
-            DataColumn(label: Text('Email')),
-            DataColumn(label: Text('UID')),
-            DataColumn(label: Text('Acciones')),
-          ], source: usersDataSource,
+          PaginatedDataTable(
+            columns: [
+              const DataColumn(label: Text('Avatar')),
+              DataColumn(
+                label: const Text('Nombre'),
+                onSort: (index, _) {
+                  usersProvider.sort<String>((usuario) => usuario.nombre);
+                },
+              ),
+              DataColumn(
+                label: const Text('Email'),
+                onSort: (index, _) {
+                  usersProvider.sort<String>((usuario) => usuario.correo);
+                },
+              ),
+              const DataColumn(label: Text('UID')),
+              const DataColumn(label: Text('Acciones')),
+            ],
+            source: usersDataSource,
           )
         ],
       ),
