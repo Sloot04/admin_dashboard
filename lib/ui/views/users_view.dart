@@ -23,17 +23,21 @@ class UsersView extends StatelessWidget {
           Text('Users View', style: CustomLabels.h1),
           const SizedBox(height: 10),
           PaginatedDataTable(
+            sortAscending: usersProvider.ascending,
+            sortColumnIndex: usersProvider.sortColumnIndex,
             columns: [
               const DataColumn(label: Text('Avatar')),
               DataColumn(
                 label: const Text('Nombre'),
                 onSort: (index, _) {
+                  usersProvider.sortColumnIndex= index;
                   usersProvider.sort<String>((usuario) => usuario.nombre);
                 },
               ),
               DataColumn(
                 label: const Text('Email'),
                 onSort: (index, _) {
+                  usersProvider.sortColumnIndex= index;
                   usersProvider.sort<String>((usuario) => usuario.correo);
                 },
               ),
@@ -41,6 +45,9 @@ class UsersView extends StatelessWidget {
               const DataColumn(label: Text('Acciones')),
             ],
             source: usersDataSource,
+            onPageChanged: (page){
+              print(page);
+            },
           )
         ],
       ),
