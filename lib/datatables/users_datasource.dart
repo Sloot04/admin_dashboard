@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 
+import 'package:admin_dashboard/models/usuario.dart';
+
 class UsersDTS extends DataTableSource {
+  final List<Usuario> users;
+
+  UsersDTS(this.users);
+
   @override
   DataRow getRow(int index) {
+    final Usuario user = users[index];
+    const image =
+        Image(image: AssetImage('no-image.jpg'), width: 35, height: 35);
+
     return DataRow.byIndex(index: index, cells: [
-      DataCell(Text('Avatar $index')),
-      DataCell(Text('Nombre $index')),
-      DataCell(Text('Email $index')),
-      DataCell(Text('UID $index')),
-      DataCell(Text('Acciones $index')),
+      const DataCell(ClipOval(child: image)),
+      DataCell(Text(user.nombre)),
+      DataCell(Text(user.correo)),
+      DataCell(Text(user.uid)),
+      DataCell(IconButton(
+        icon: const Icon(Icons.edit_outlined),
+        onPressed: () {},
+      )),
     ]);
   }
 
@@ -16,7 +29,7 @@ class UsersDTS extends DataTableSource {
   bool get isRowCountApproximate => false;
 
   @override
-  int get rowCount => 100;
+  int get rowCount => users.length;
 
   @override
   int get selectedRowCount => 0;
