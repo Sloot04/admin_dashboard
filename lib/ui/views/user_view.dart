@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -64,16 +65,63 @@ class _UserViewBody extends StatelessWidget {
         columnWidths: const {0: FixedColumnWidth(250)},
         children: [
           TableRow(children: [
-            // TODO: Avatar
+            // Avatar
             _AvatarContainer(),
 
-            // TODO:Formulario de actualización
-            Container(
-              height: 200,
-              color: Colors.green,
-            )
+            // Formulario de actualización
+            _UserViewForm()
           ])
         ],
+      ),
+    );
+  }
+}
+
+class _UserViewForm extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return WhiteCard(
+      title: 'Información general',
+      child: Form(
+        //TODO: Key
+        autovalidateMode: AutovalidateMode.always,
+        child: Column(
+          children: [
+            TextFormField(
+              decoration: CustomInputs.formInputDecoration(
+                hint: 'Nombre del usuario',
+                label: 'Nombre',
+                icon: Icons.supervised_user_circle_outlined,
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              decoration: CustomInputs.formInputDecoration(
+                hint: 'Correo del usuario',
+                label: 'Correo',
+                icon: Icons.mark_email_read_outlined,
+              ),
+            ),
+            const SizedBox(height: 20),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 120),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                    shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.save_outlined, size: 20),
+                      SizedBox(width: 5),
+                      Text('Guardar'),
+                    ],
+                  )),
+            )
+          ],
+        ),
       ),
     );
   }
