@@ -1,12 +1,13 @@
-import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:admin_dashboard/models/usuario.dart';
 
+import 'package:admin_dashboard/providers/user_form_provider.dart';
 import 'package:admin_dashboard/providers/users_provider.dart';
 
 import 'package:admin_dashboard/ui/cards/white_card.dart';
+import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
 
 class UserView extends StatefulWidget {
@@ -25,9 +26,12 @@ class _UserViewState extends State<UserView> {
   void initState() {
     super.initState();
     final usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    usersProvider
-        .getUserById(widget.uid)
-        .then(((userDB) => setState((() => user = userDB))));
+    final userFormProvider =
+        Provider.of<UserFormProvider>(context, listen: false);
+    usersProvider.getUserById(widget.uid).then((userDB) {
+      userFormProvider.user = userDB;
+      setState(() => user = userDB);
+    });
   }
 
   @override
@@ -80,6 +84,8 @@ class _UserViewBody extends StatelessWidget {
 class _UserViewForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final user = userFormProvider.user!;
     return WhiteCard(
       title: 'Información general',
       child: Form(
@@ -88,6 +94,7 @@ class _UserViewForm extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
+              initialValue: user.nombre,
               decoration: CustomInputs.formInputDecoration(
                 hint: 'Nombre del usuario',
                 label: 'Nombre',
@@ -96,6 +103,7 @@ class _UserViewForm extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextFormField(
+              initialValue: user.correo,
               decoration: CustomInputs.formInputDecoration(
                 hint: 'Correo del usuario',
                 label: 'Correo',
@@ -106,7 +114,9 @@ class _UserViewForm extends StatelessWidget {
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 120),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // TODO: Put- Actualizar usuario
+                  },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.indigo),
                     shadowColor: MaterialStateProperty.all(Colors.transparent),
