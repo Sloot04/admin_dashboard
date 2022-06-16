@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:email_validator/email_validator.dart';
 
 import 'package:admin_dashboard/models/usuario.dart';
 
@@ -89,12 +90,18 @@ class _UserViewForm extends StatelessWidget {
     return WhiteCard(
       title: 'Información general',
       child: Form(
-        //TODO: Key
+        key: userFormProvider.formKey,
         autovalidateMode: AutovalidateMode.always,
         child: Column(
           children: [
             TextFormField(
               initialValue: user.nombre,
+              validator: (value) {
+                if (value == null || value.isEmpty) return 'Ingrese un nombre';
+                if (value.length < 2) return 'El nombre debe tener al menos dos caracteres';
+                return null;
+              },
+             onChanged: (value)=> userFormProvider.copyUserWith(nombre: value),
               decoration: CustomInputs.formInputDecoration(
                 hint: 'Nombre del usuario',
                 label: 'Nombre',
@@ -104,6 +111,13 @@ class _UserViewForm extends StatelessWidget {
             const SizedBox(height: 20),
             TextFormField(
               initialValue: user.correo,
+              validator: (value) {
+                if (!EmailValidator.validate(value ?? '')) {
+                  return 'Email no válido';
+                }
+                return null;
+              },
+              onChanged: (value)=> userFormProvider.copyUserWith(correo: value),
               decoration: CustomInputs.formInputDecoration(
                 hint: 'Correo del usuario',
                 label: 'Correo',
@@ -116,6 +130,7 @@ class _UserViewForm extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {
                     // TODO: Put- Actualizar usuario
+                    userFormProvider.updateUser();
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.indigo),
@@ -140,6 +155,9 @@ class _UserViewForm extends StatelessWidget {
 class _AvatarContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userFormProvider = Provider.of<UserFormProvider>(context);
+    final user = userFormProvider.user!;
+
     return WhiteCard(
         width: 250,
         child: Container(
@@ -185,9 +203,9 @@ class _AvatarContainer extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Nombre de usuario',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Text(
+                user.nombre,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               )
             ],
           ),
