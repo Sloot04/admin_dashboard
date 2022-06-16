@@ -99,7 +99,8 @@ class _UserViewForm extends StatelessWidget {
               initialValue: user.nombre,
               validator: (value) {
                 if (value == null || value.isEmpty) return 'Ingrese un nombre';
-                if (value.length < 2) return 'El nombre debe tener al menos dos caracteres';
+                if (value.length < 2){
+                  return 'El nombre debe tener al menos dos caracteres';}
                 return null;
               },
               onChanged: (value) =>
@@ -135,6 +136,8 @@ class _UserViewForm extends StatelessWidget {
                     final saved = await userFormProvider.updateUser();
                     if (saved) {
                       NotificationsService.showSnackbar('Usuario actualizado');
+                      Provider.of<UsersProvider>(context, listen: false)
+                          .refreshUser(user);
                     } else {
                       NotificationsService.showSnackbarError(
                           'No se pudo actualizar el usuario');
