@@ -6,7 +6,7 @@ import 'package:admin_dashboard/models/usuario.dart';
 
 class UserFormProvider extends ChangeNotifier {
   Usuario? user;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late GlobalKey<FormState> formKey;
 
   copyUserWith({
     String? rol,
