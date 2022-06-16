@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
@@ -101,7 +102,8 @@ class _UserViewForm extends StatelessWidget {
                 if (value.length < 2) return 'El nombre debe tener al menos dos caracteres';
                 return null;
               },
-             onChanged: (value)=> userFormProvider.copyUserWith(nombre: value),
+              onChanged: (value) =>
+                  userFormProvider.copyUserWith(nombre: value),
               decoration: CustomInputs.formInputDecoration(
                 hint: 'Nombre del usuario',
                 label: 'Nombre',
@@ -117,7 +119,8 @@ class _UserViewForm extends StatelessWidget {
                 }
                 return null;
               },
-              onChanged: (value)=> userFormProvider.copyUserWith(correo: value),
+              onChanged: (value) =>
+                  userFormProvider.copyUserWith(correo: value),
               decoration: CustomInputs.formInputDecoration(
                 hint: 'Correo del usuario',
                 label: 'Correo',
@@ -128,9 +131,14 @@ class _UserViewForm extends StatelessWidget {
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 120),
               child: ElevatedButton(
-                  onPressed: () {
-                    // TODO: Put- Actualizar usuario
-                    userFormProvider.updateUser();
+                  onPressed: () async {
+                    final saved = await userFormProvider.updateUser();
+                    if (saved) {
+                      NotificationsService.showSnackbar('Usuario actualizado');
+                    } else {
+                      NotificationsService.showSnackbarError(
+                          'No se pudo actualizar el usuario');
+                    }
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.indigo),
