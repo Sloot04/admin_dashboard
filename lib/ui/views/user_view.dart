@@ -227,11 +227,11 @@ class _AvatarContainer extends StatelessWidget {
                             );
 
                             if (result != null) {
-                              print('subiendo');
+                              NotificationsService.showBusyIndicator(context);
                               PlatformFile file = result.files.first;
                               final resp = await userFormProvider.uploadImage(
                                   '/uploads/usuarios/${user.uid}', file.bytes!);
-                              print('resp: ${resp.img}');
+                              Navigator.of(context).pop();
                             } else {
                               // User canceled the picker
                               print('no hay imagen');
