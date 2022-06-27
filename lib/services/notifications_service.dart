@@ -28,11 +28,14 @@ class NotificationsService {
   }
 
   static showBusyIndicator(BuildContext context) {
-    const AlertDialog dialog = AlertDialog(
-      content: SizedBox(
+    AlertDialog dialog = AlertDialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      content: Container(
+        color: Colors.transparent,
         width: 100,
         height: 100,
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(),
         ),
       ),
