@@ -232,8 +232,9 @@ class _AvatarContainer extends StatelessWidget {
                             if (result != null) {
                               NotificationsService.showBusyIndicator(context);
                               PlatformFile file = result.files.first;
-                              final resp = await userFormProvider.uploadImage(
+                              final newUser = await userFormProvider.uploadImage(
                                   '/uploads/usuarios/${user.uid}', file.bytes!);
+                              Provider.of<UsersProvider>(context, listen: false).refreshUser(newUser);
                               Navigator.of(context).pop();
                             } else {
                               // User canceled the picker
